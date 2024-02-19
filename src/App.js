@@ -1,9 +1,9 @@
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import './App.css';
 
 function calculateTaxValue(value) {
   console.log("Calculating tax...");
-  
+
   if(!value) {
     return 0;
   }
@@ -15,7 +15,7 @@ function App() {
   const [taxName, setTaxName] = useState('');
   const [grossValue, setGrossValue] = useState('');
 
-  const taxValue = calculateTaxValue(grossValue);
+  const taxValue = useMemo(() => calculateTaxValue(grossValue), [grossValue]);
 
   return (
     <div className="App">
@@ -28,6 +28,7 @@ function App() {
         placeholder='Gross Value'
         value={grossValue}
         onChange={event => setGrossValue(event.target.value)}
+        type="number"
       />
 
       <ul>
