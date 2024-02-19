@@ -1,23 +1,40 @@
-import logo from './logo.svg';
+import { useState } from 'react';
 import './App.css';
 
+function calculateTaxValue(value) {
+  console.log("Calculating tax...");
+  
+  if(!value) {
+    return 0;
+  }
+
+  return parseFloat(value) * 0.75;
+}
+
 function App() {
+  const [taxName, setTaxName] = useState('');
+  const [grossValue, setGrossValue] = useState('');
+
+  const taxValue = calculateTaxValue(grossValue);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <input
+        placeholder='Tax Name'
+        value={taxName}
+        onChange={event => setTaxName(event.target.value)}
+      />
+      <input
+        placeholder='Gross Value'
+        value={grossValue}
+        onChange={event => setGrossValue(event.target.value)}
+      />
+
+      <ul>
+        <li>Tax Name: <strong>{taxName}</strong></li>
+        <li>Tax Amount: $ <strong>{taxValue}</strong></li>
+      </ul>
+
     </div>
   );
 }
